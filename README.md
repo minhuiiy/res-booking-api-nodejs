@@ -1,8 +1,16 @@
-# res-booking-api-nodejs
-Final Project - RESTful API for [Hệ thống Quản lý Review & Đặt bàn Nhà hàng] - NodeJS &amp; ExpressJS
+# Hệ thống Quản lý Review & Đặt bàn Nhà hàng
+Final Project - RESTful API - NodeJS & ExpressJS
 
-Hệ thống Quản lý Review & Đặt bàn Nhà hàng
-Trần Thái Minh Huy - 2280601263  
-Hoàng Anh Quý - 
-Nguyễn văn Tiến -
-Trương Thanh Sơn-
+## 👥 Danh sách thành viên & Phân công nhiệm vụ
+
+- **Trần Thái Minh Huy** - 2280601263
+  - *Đảm nhiệm nền tảng và 8 Core Models:* `User`, `Restaurant`, `Table`, `Category`, `MenuItem`, `Reservation`, `Review`, `Payment`
+
+- **Hoàng Anh Quý** - (Điền Mã SV)
+  - *Đảm nhiệm Model:* `Promotion` *(Quản lý mã giảm giá, khuyến mãi ăn uống)*
+
+- **Nguyễn văn Tiến** - (Điền Mã SV)
+  - *Đảm nhiệm Model:* `Notification` *(Quản lý hệ thống thông báo trạng thái đặt bàn cho khách hàng)*
+
+- **Trương Thanh Sơn** - (Điền Mã SV)
+  - *Đảm nhiệm Model:* `Favorite` *(Quản lý danh sách nhà hàng/món ăn yêu thích của khách hàng)*
