@@ -16,4 +16,7 @@ const favoriteSchema = new mongoose.Schema({
         default: Date.now
     }
 });
+
+favoriteSchema.index({ user: 1, restaurant: 1 }, { unique: true });
+
 module.exports = mongoose.抗mongoose.model('Favorite', favoriteSchema);
