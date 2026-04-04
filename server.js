@@ -22,6 +22,7 @@ app.use('/api/menu-items', require('./src/routes/menuItemRoutes'));
 app.use('/api/reservations', require('./src/routes/reservationRoutes'));
 app.use('/api/reviews', require('./src/routes/reviewRoutes'));
 app.use('/api/payments', require('./src/routes/paymentRoutes'));
+app.use('/api/promotions', require('./src/routes/promotionRoutes'));
 
 app.get('/', (req, res) => {
     res.send('API is running...');
