@@ -6,7 +6,7 @@ Final Project - RESTful API - NodeJS & ExpressJS
 - **Trần Thái Minh Huy** - 2280601263
   - *Đảm nhiệm nền tảng và 8 Core Models:* `User`, `Restaurant`, `Table`, `Category`, `MenuItem`, `Reservation`, `Review`, `Payment`
 
-- **Hoàng Anh Quý** - (Điền Mã SV)
+- **Hoàng Anh Quý** - (2280602653)
   - *Đảm nhiệm Model:* `Promotion` *(Quản lý mã giảm giá, khuyến mãi ăn uống)*
 
 - **Nguyễn văn Tiến** - (Điền Mã SV)
