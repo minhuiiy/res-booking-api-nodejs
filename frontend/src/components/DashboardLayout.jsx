@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Navigate, Outlet, Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { LogOut, Store, Users, LayoutDashboard, UtensilsCrossed } from 'lucide-react';
+import { LogOut, Store, Users, LayoutDashboard, UtensilsCrossed, CalendarCheck, CalendarRange } from 'lucide-react';
 
 export default function DashboardLayout() {
     const { user, logout } = useContext(AuthContext);
@@ -11,16 +11,25 @@ export default function DashboardLayout() {
         return <Navigate to="/login" replace />;
     }
 
-    const menu = [
-        { path: '/', icon: <LayoutDashboard size={20}/>, label: 'Dashboard' },
-        { path: '/restaurants', icon: <Store size={20}/>, label: 'Restaurants' },
-        { path: '/menu', icon: <UtensilsCrossed size={20}/>, label: 'Menu Items' },
-        { path: '/users', icon: <Users size={20}/>, label: 'Users' },
-    ];
+    let menu = [];
+
+    if (user.role === 'admin') {
+        menu = [
+            { path: '/', icon: <LayoutDashboard size={20}/>, label: 'Dashboard' },
+            { path: '/restaurants', icon: <Store size={20}/>, label: 'Restaurants' },
+            { path: '/reservations', icon: <CalendarCheck size={20}/>, label: 'All Booking' },
+            { path: '/menus', icon: <UtensilsCrossed size={20}/>, label: 'Menulist' },
+            { path: '/users', icon: <Users size={20}/>, label: 'Users' }
+        ];
+    } else {
+        menu = [
+            { path: '/book-table', icon: <CalendarRange size={20}/>, label: 'Book a Table' },
+            { path: '/reservations', icon: <CalendarCheck size={20}/>, label: 'My Bookings' }
+        ];
+    }
 
     return (
         <div className="flex h-screen bg-gray-100">
-            {/* Sidebar */}
             <aside className="w-64 bg-white border-r border-gray-200 shadow-sm flex flex-col">
                 <div className="p-6">
                     <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
@@ -34,7 +43,7 @@ export default function DashboardLayout() {
                         <Link 
                             key={item.label}
                             to={item.path} 
-                            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${ 
                                 location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path))
                                 ? 'bg-primary/10 text-primary font-semibold' 
                                 : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
@@ -66,7 +75,6 @@ export default function DashboardLayout() {
                 </div>
             </aside>
 
-            {/* Main Content */}
             <main className="flex-1 overflow-auto p-8">
                 <Outlet />
             </main>

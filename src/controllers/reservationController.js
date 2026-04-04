@@ -2,10 +2,7 @@ const Reservation = require('../models/Reservation');
 
 exports.createReservation = async (req, res) => {
     try {
-        let data = { ...req.body };
-        if (req.file) {
-            data.image = '/' + req.file.path.replace(/\\\\/g, '/');
-        }
+        let data = { ...req.body, user: req.user._id };
         const document = await Reservation.create(data);
         res.status(201).json(document);
     } catch (error) { res.status(500).json({ message: error.message }); }
@@ -13,7 +10,12 @@ exports.createReservation = async (req, res) => {
 
 exports.getReservations = async (req, res) => {
     try {
-        const documents = await Reservation.find({});
+        let documents;
+        if (req.user.role === 'admin') {
+            documents = await Reservation.find({}).populate('user', 'name email').populate('table');
+        } else {
+            documents = await Reservation.find({ user: req.user._id }).populate('table');
+        }
         res.json(documents);
     } catch (error) { res.status(500).json({ message: error.message }); }
 };
@@ -29,9 +31,6 @@ exports.getReservationById = async (req, res) => {
 exports.updateReservation = async (req, res) => {
     try {
         let data = { ...req.body };
-        if (req.file) {
-            data.image = '/' + req.file.path.replace(/\\\\/g, '/');
-        }
         const document = await Reservation.findByIdAndUpdate(req.params.id, data, { new: true });
         if (document) res.json(document);
         else res.status(404).json({ message: 'Not found' });

@@ -4,6 +4,17 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import DashboardLayout from './components/DashboardLayout';
 import Restaurants from './pages/Restaurants';
+import BookTable from './pages/BookTable';
+import Menus from './pages/Menus';
+import Reservations from './pages/Reservations';
+import { useContext } from 'react';
+import { AuthContext as AC } from './context/AuthContext';
+
+function RoleBasedHome() {
+    const { user } = useContext(AC);
+    if (!user) return <Navigate to="/login" replace />;
+    return user.role === 'admin' ? <Navigate to="/restaurants" replace /> : <Navigate to="/book-table" replace />;
+}
 
 function App() {
   return (
@@ -14,8 +25,11 @@ function App() {
           <Route path="/register" element={<Register />} />
           
           <Route path="/" element={<DashboardLayout />}>
-            <Route index element={<Navigate to="/restaurants" replace />} />
+            <Route index element={<RoleBasedHome />} />
             <Route path="restaurants" element={<Restaurants />} />
+            <Route path="menus" element={<Menus />} />
+            <Route path="book-table" element={<BookTable />} />
+            <Route path="reservations" element={<Reservations />} />
             <Route path="users" element={<div className="p-8"><h1 className="text-2xl font-bold">Users Management</h1></div>} />
           </Route>
         </Routes>
