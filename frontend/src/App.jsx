@@ -7,6 +7,7 @@ import Restaurants from './pages/Restaurants';
 import BookTable from './pages/BookTable';
 import Menus from './pages/Menus';
 import Reservations from './pages/Reservations';
+import Promotions from './pages/Promotions';
 import Users from './pages/Users';
 import { useContext } from 'react';
 import { AuthContext as AC } from './context/AuthContext';
@@ -28,6 +29,7 @@ function App() {
           <Route path="/" element={<DashboardLayout />}>
             <Route index element={<RoleBasedHome />} />
             <Route path="restaurants" element={<Restaurants />} />
+            <Route path="promotions" element={<Promotions />} />
             <Route path="menus" element={<Menus />} />
             <Route path="book-table" element={<BookTable />} />
             <Route path="reservations" element={<Reservations />} />
