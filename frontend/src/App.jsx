@@ -8,13 +8,14 @@ import BookTable from './pages/BookTable';
 import Menus from './pages/Menus';
 import Reservations from './pages/Reservations';
 import Promotions from './pages/Promotions';
+import Favorites from './pages/Favorites';
 import { useContext } from 'react';
 import { AuthContext as AC } from './context/AuthContext';
 
 function RoleBasedHome() {
     const { user } = useContext(AC);
     if (!user) return <Navigate to="/login" replace />;
-    return user.role === 'admin' ? <Navigate to="/restaurants" replace /> : <Navigate to="/book-table" replace />;
+    return user.role === 'admin' ? <Navigate to="/restaurants" replace /> : <Navigate to="/restaurants" replace />;
 }
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <Route path="reservations" element={<Reservations />} />
             <Route path="promotions" element={<Promotions />} />
             <Route path="users" element={<div className="p-8"><h1 className="text-2xl font-bold">Users Management</h1></div>} />
+            <Route path="favorites" element={<Favorites />} />
           </Route>
         </Routes>
       </BrowserRouter>

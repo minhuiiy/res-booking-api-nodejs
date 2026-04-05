@@ -1,7 +1,17 @@
 import { useContext } from 'react';
 import { Navigate, Outlet, Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { LogOut, Store, Users, LayoutDashboard, UtensilsCrossed, CalendarCheck, CalendarRange, TicketPercent } from 'lucide-react';
+import { 
+    LogOut, 
+    Store, 
+    Users, 
+    LayoutDashboard, 
+    UtensilsCrossed, 
+    CalendarCheck, 
+    CalendarRange, 
+    TicketPercent, 
+    Heart 
+} from 'lucide-react';
 
 export default function DashboardLayout() {
     const { user, logout } = useContext(AuthContext);
@@ -23,9 +33,12 @@ export default function DashboardLayout() {
             { path: '/users', icon: <Users size={20}/>, label: 'Users' }
         ];
     } else {
+        // Phần Menu dành cho khách hàng (Sơn Nấm)
         menu = [
+            { path: '/restaurants', icon: <Store size={20}/>, label: 'Restaurants' },
             { path: '/book-table', icon: <CalendarRange size={20}/>, label: 'Book a Table' },
             { path: '/reservations', icon: <CalendarCheck size={20}/>, label: 'My Bookings' },
+            { path: '/favorites', icon: <Heart size={20}/>, label: 'My Favorites' },
             { path: '/promotions', icon: <TicketPercent size={20}/>, label: 'Deals & Promos' }
         ];
     }
@@ -60,7 +73,11 @@ export default function DashboardLayout() {
                 <div className="p-4 border-t border-gray-100">
                     <div className="flex items-center gap-3 px-4 py-3 mb-2">
                         <div className="w-10 h-10 rounded-full bg-gray-200 border-2 border-white shadow flex items-center justify-center overflow-hidden">
-                             {user.avatar ? <img src={`http://localhost:5000${user.avatar}`} className="w-full h-full object-cover" /> : <span className="text-gray-500 font-bold">{user.name.charAt(0)}</span>}
+                             {user.avatar ? (
+                                 <img src={`http://localhost:5000${user.avatar}`} className="w-full h-full object-cover" />
+                             ) : (
+                                 <span className="text-gray-500 font-bold">{user.name.charAt(0)}</span>
+                             )}
                         </div>
                         <div>
                             <p className="text-sm font-semibold text-gray-900">{user.name}</p>

@@ -5,7 +5,7 @@ const { protect, admin } = require('../middlewares/authMiddleware');
 const upload = require('../middlewares/uploadMiddleware');
 
 router.route('/')
-    .post(protect, admin, upload.single('image'), controller.createRestaurant)
+    .post(protect, upload.single('image'), controller.createRestaurant)
     .get(controller.getRestaurants);
 
 router.route('/:id')

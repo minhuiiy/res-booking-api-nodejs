@@ -19,4 +19,4 @@ const favoriteSchema = new mongoose.Schema({
 
 favoriteSchema.index({ user: 1, restaurant: 1 }, { unique: true });
 
-module.exports = mongoose.抗mongoose.model('Favorite', favoriteSchema);
+module.exports = mongoose.model('Favorite', favoriteSchema);
