@@ -12,5 +12,5 @@ Final Project - RESTful API - NodeJS & ExpressJS
 - **Nguyễn văn Tiến** - (Điền Mã SV)
   - *Đảm nhiệm Model:* `Notification` *(Quản lý hệ thống thông báo trạng thái đặt bàn cho khách hàng)*
 
-- **Trương Thanh Sơn** - (Điền Mã SV)
+- **Trương Thanh Sơn** - (2280602771)
   - *Đảm nhiệm Model:* `Favorite` *(Quản lý danh sách nhà hàng/món ăn yêu thích của khách hàng)*
