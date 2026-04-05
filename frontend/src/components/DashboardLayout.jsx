@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Navigate, Outlet, Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { LogOut, Store, Users, LayoutDashboard, UtensilsCrossed, CalendarCheck, CalendarRange } from 'lucide-react';
+import { LogOut, Store, Users, LayoutDashboard, UtensilsCrossed, CalendarCheck, CalendarRange, TicketPercent } from 'lucide-react';
 
 export default function DashboardLayout() {
     const { user, logout } = useContext(AuthContext);
@@ -19,12 +19,14 @@ export default function DashboardLayout() {
             { path: '/restaurants', icon: <Store size={20}/>, label: 'Restaurants' },
             { path: '/reservations', icon: <CalendarCheck size={20}/>, label: 'All Booking' },
             { path: '/menus', icon: <UtensilsCrossed size={20}/>, label: 'Menulist' },
+            { path: '/promotions', icon: <TicketPercent size={20}/>, label: 'Promotions' },
             { path: '/users', icon: <Users size={20}/>, label: 'Users' }
         ];
     } else {
         menu = [
             { path: '/book-table', icon: <CalendarRange size={20}/>, label: 'Book a Table' },
-            { path: '/reservations', icon: <CalendarCheck size={20}/>, label: 'My Bookings' }
+            { path: '/reservations', icon: <CalendarCheck size={20}/>, label: 'My Bookings' },
+            { path: '/promotions', icon: <TicketPercent size={20}/>, label: 'Deals & Promos' }
         ];
     }
 
