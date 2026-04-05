@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import api from '../utils/api';
 import { AuthContext } from '../context/AuthContext';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Edit2 } from 'lucide-react';
 
 export default function Menus() {
     const [menus, setMenus] = useState([]);
@@ -16,6 +16,7 @@ export default function Menus() {
     const [formData, setFormData] = useState({ category: '', name: '', price: '', description: '' });
     const [catName, setCatName] = useState('');
     const [file, setFile] = useState(null);
+    const [editId, setEditId] = useState(null);
 
     const fetchData = async () => {
         try {
@@ -60,17 +61,24 @@ export default function Menus() {
             uploadData.append('description', formData.description);
             if (file) uploadData.append('image', file);
 
-            await api.post('/menu-items', uploadData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
+            if (editId) {
+                await api.put(`/menu-items/${editId}`, uploadData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
+            } else {
+                await api.post('/menu-items', uploadData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
+            }
             
             setIsModalOpen(false);
-            setFormData({ ...formData, name: '', price: '', description: '' });
+            setEditId(null);
+            setFormData({ category: categories.length > 0 ? categories[0]._id : '', name: '', price: '', description: '' });
             setFile(null);
             fetchData();
         } catch (error) {
             console.error(error);
-            alert('Error adding menu item');
+            alert('Error saving menu item');
         }
     };
 
@@ -85,6 +93,24 @@ export default function Menus() {
         }
     };
 
+    const handleEdit = (menu) => {
+        setFormData({
+            category: menu.category._id || menu.category,
+            name: menu.name,
+            price: menu.price,
+            description: menu.description || ''
+        });
+        setEditId(menu._id);
+        setIsModalOpen(true);
+    };
+
+    const openAddModal = () => {
+        setFormData({ category: categories.length > 0 ? categories[0]._id : '', name: '', price: '', description: '' });
+        setEditId(null);
+        setFile(null);
+        setIsModalOpen(true);
+    };
+
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
@@ -97,7 +123,7 @@ export default function Menus() {
                     <button onClick={() => setIsCatModalOpen(true)} className="px-4 py-2 bg-gray-100 text-gray-700 hover:bg-gray-200 rounded-lg flex items-center gap-2 font-medium">
                         <Plus size={18} /> Category
                     </button>
-                    <button onClick={() => setIsModalOpen(true)} className="btn-primary flex items-center gap-2 shadow-primary/30">
+                    <button onClick={openAddModal} className="btn-primary flex items-center gap-2 shadow-primary/30">
                         <Plus size={18} /> Menu Item
                     </button>
                 </div>
@@ -127,6 +153,9 @@ export default function Menus() {
                             
                             {user?.role === 'admin' && (
                             <div className="flex justify-end gap-2 mt-4 pt-4 border-t border-gray-50">
+                                <button onClick={() => handleEdit(menu)} className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors">
+                                    <Edit2 size={18} />
+                                </button>
                                 <button onClick={() => handleDelete(menu._id)} className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors">
                                     <Trash2 size={18} />
                                 </button>
@@ -144,7 +173,7 @@ export default function Menus() {
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4">
                     <div className="bg-white p-8 rounded-2xl w-full max-w-lg shadow-2xl">
-                        <h2 className="text-2xl font-bold mb-6">Add Menu Item</h2>
+                        <h2 className="text-2xl font-bold mb-6">{editId ? 'Edit Menu Item' : 'Add Menu Item'}</h2>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
