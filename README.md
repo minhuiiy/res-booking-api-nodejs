@@ -9,7 +9,7 @@ Final Project - RESTful API - NodeJS & ExpressJS
 - **Hoàng Anh Quý** - (2280602653)
   - *Đảm nhiệm Model:* `Promotion` *(Quản lý mã giảm giá, khuyến mãi ăn uống)*
 
-- **Nguyễn văn Tiến** - (Điền Mã SV)
+- **Nguyễn văn Tiến** - (2280603234)
   - *Đảm nhiệm Model:* `Notification` *(Quản lý hệ thống thông báo trạng thái đặt bàn cho khách hàng)*
 
 - **Trương Thanh Sơn** - (2280602771)
